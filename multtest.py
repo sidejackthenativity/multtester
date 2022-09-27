@@ -3,6 +3,7 @@ import random
 
 
 data = [] #list that holds all the questions
+wrong_answers = []
 correct_solutions = 0 #number of correct questions user has solved, running counter
 finished_all_questions = False #flag to hold whether or not all of the questions have been solved
 
@@ -26,7 +27,7 @@ val = input ("Are you ready to kick mass ath?" )
 print("")
 print("Let's go then. I will start the timer at 5 minutes. You must answer 80% of ALL questions correctly.")
 print("")
-val = input ("Press Enter to go ")
+val = input("Press Enter to go ")
 print("Good luck superstar!")
 
 
@@ -41,6 +42,7 @@ while ((endtime - starttime).seconds < 300):
     #pick random element from list and remove
     current_question = random.choice(data)
     data.remove(current_question)
+    wrong_answers.append(current_question)
 
     #calculate answer by splitting and calculating
     splitting = current_question.split('x')
@@ -61,6 +63,7 @@ while ((endtime - starttime).seconds < 300):
     #check if answer is correct, if so add 1 to variable
     if int(user_answer) == answer:
         correct_solutions += 1
+        wrong_answers.remove(current_question)
 
     #check if list is empty, if so leave loop and set flag to true
     if len(data) == 0:
@@ -79,3 +82,7 @@ if finished_all_questions == False:
 else:
     print("All done in time!")
     print("You got "+formatted_float_value+"%")
+
+print("Here are the questions you got wrong: ")
+for x in wrong_answers:
+    print(x)
